@@ -31,6 +31,12 @@ export BLOOM_TERM_SYMBOLS="VOO, AMZN, MSFT, DIS, TSLA, VNQ"
 # This controls how many symbols will be shown on a line. If this value is missing or set to -1,
 # then all results will be printed on a single line.
 export BLOOM_TERM_SHOW_PER_LINE="3"
+
+# This controls the HTTP timeout. If it takes longer than this many seconds to complete
+# the request, bloom-term will exit without printing anything to the terminal
+#
+# If this value is missing, bloom-term will default to a 1 second timeout
+export BLOOM_TERM_TIMEOUT="0.5"
 ```
 
 - Run `bloom-term`
@@ -45,7 +51,8 @@ python3 bloom-term.py
 # only run for interactive sessions
 if [[ $- == *i* ]]; then
     BLOOM_TERM_SYMBOLS="VOO, GOOG, MSFT, DIS, TSLA, VNQ" \
-        BLOOM_TERM_SHOW_PER_LINE="3" \
+        BLOOM_TERM_SHOW_PER_LINE="3"                     \
+        BLOOM_TERM_TIMEOUT="0.5"                         \
         python3 "/path/to/bloom-term.py
 fi
 ```

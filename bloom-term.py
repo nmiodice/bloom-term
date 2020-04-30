@@ -30,12 +30,15 @@ class format:
 def format_string(fmt, msg):
     return '{0}{1}{2}'.format(fmt, msg, format.END_FORMAT)
 
-def get(symbols):
-    conn = http.client.HTTPSConnection(API_ENDPOINT)
-    conn.request('GET', API_PATH + '?symbols=' + ','.join(symbols) + '&fields=' + API_FIELDS)
-    response = conn.getresponse()
-    if response.status != 200:
-        print(format_string(format.RED, 'Cannot retrieve symbols... ' + response.reason))
+def get(symbols, timeout):
+    conn = http.client.HTTPSConnection(API_ENDPOINT, timeout = timeout)
+    try:
+        conn.request('GET', API_PATH + '?symbols=' + ','.join(symbols) + '&fields=' + API_FIELDS)
+        response = conn.getresponse()
+        if response.status != 200:
+            print(format_string(format.RED, 'Cannot retrieve symbols... ' + response.reason))
+            exit(-1)
+    except:
         exit(-1)
 
     return json.loads(response.read().decode())
@@ -93,9 +96,9 @@ def print_results(response, display_per_line):
         print('   '.join(line))
     
 
-def run(symbols, display_per_line):
+def run(symbols, display_per_line, timeout):
     symbols.sort()
-    print_results(get(symbols), display_per_line)
+    print_results(get(symbols, timeout), display_per_line)
 
 
 if __name__ == '__main__':
@@ -104,4 +107,5 @@ if __name__ == '__main__':
         exit(0)
     
     display_per_line = int(os.environ.get('BLOOM_TERM_SHOW_PER_LINE', "-1"))
-    run([x.strip() for x in symbols.split(',')], display_per_line)
+    timeout = float(os.environ.get('BLOOM_TERM_TIMEOUT', "1"))
+    run([x.strip() for x in symbols.split(',')], display_per_line, timeout)
