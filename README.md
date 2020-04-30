@@ -2,6 +2,8 @@
 
 `bloom-term` is a tool that displays market prices in your terminal. Not quite as nice but a bloomberg terminal, but at least its free!
 
+![bloom-term-demo](./.images/demo.png)
+
 ## Dependencies
 
 The only dependendy for `bloom-term` is any `3.x` version of python.
@@ -43,7 +45,7 @@ python3 bloom-term.py
 # only run for interactive sessions
 if [[ $- == *i* ]]; then
     BLOOM_TERM_SYMBOLS="VOO, GOOG, MSFT, DIS, TSLA, VNQ" \
-        BLOOM_TERM_SHOW_PER_LINE="2" \
-        python3 "/path/to/bloom-term.py"
+        BLOOM_TERM_SHOW_PER_LINE="3" \
+        python3 "/path/to/bloom-term.py
 fi
 ```
