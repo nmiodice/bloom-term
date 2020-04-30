@@ -12,19 +12,19 @@ The only dependendy for `bloom-term` is any `3.x` version of python.
 
 - Download `bloom-term.py` locally
 
-```
+```bash
 $ git clone https://github.com/nmiodice/bloom-term.git
 ```
 
 *or*
 
-```
+```bash
 $ curl -o bloom-term.py https://raw.githubusercontent.com/nmiodice/bloom-term/master/bloom-term.py
 ```
 
 - Configure `bloom-term`
 
-```
+```bash
 # This controls which symbols bloom-term will query for
 export BLOOM_TERM_SYMBOLS="VOO, AMZN, MSFT, DIS, TSLA, VNQ"
 
@@ -41,13 +41,13 @@ export BLOOM_TERM_TIMEOUT="0.5"
 
 - Run `bloom-term`
 
-```
+```bash
 python3 bloom-term.py
 ```
 
 - Optional: Add to `.bashrc` (or similar)
 
-```
+```bash
 # only run for interactive sessions
 if [[ $- == *i* ]]; then
     BLOOM_TERM_SYMBOLS="VOO, GOOG, MSFT, DIS, TSLA, VNQ" \
