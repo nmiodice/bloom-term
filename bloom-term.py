@@ -71,11 +71,14 @@ def format_line(symbol, price, percent, extra_info):
 def parse_single_result(result):
     symbol = result['symbol']
 
-    if result['marketState'] == 'POST' and result['postMarketChange'] != None and result['postMarketChange'] != 0:
-         return format_line(symbol, result['postMarketPrice'], result['postMarketChangePercent'], 'pst-mkt')
+    try:
+        if result['marketState'] == 'POST' and result['postMarketChange'] != None and result['postMarketChange'] != 0:
+            return format_line(symbol, result['postMarketPrice'], result['postMarketChangePercent'], 'pst-mkt')
 
-    if result['marketState'] == 'PRE' and result['preMarketChange'] != None and result['preMarketChange'] != 0:
-         return format_line(symbol, result['preMarketPrice'], result['preMarketChangePercent'], 'pre-mkt')
+        if result['marketState'] == 'PRE' and result['preMarketChange'] != None and result['preMarketChange'] != 0:
+            return format_line(symbol, result['preMarketPrice'], result['preMarketChangePercent'], 'pre-mkt')
+    except KeyError:
+        pass
 
     return format_line(symbol, result['regularMarketPrice'], result['regularMarketChangePercent'], '')
 
